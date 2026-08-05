@@ -14,6 +14,7 @@ class Solution:
 
             if types == 5:
                 answer = max(answer, right - left + 1)
+                
         return answer
             
         
