@@ -1,18 +1,15 @@
-SQRT_MAX = isqrt(2 ** 31 - 1)
-
 class Solution:
     def mySqrt(self, x: int) -> int:
-        # 开区间 (left, right)
-        left, right = 0, min(x, SQRT_MAX) + 1
-        while left + 1 < right:  # 开区间不为空
-            # 循环不变量：left^2 <= x
-            # 循环不变量：right^2 > x
-            m = (left + right) // 2
-            if m * m <= x:
-                left = m
+        if x < 2:
+            return x
+        left, right = 1, x // 2
+        while left < right:
+            mid = left + (right - left + 1) // 2
+            if mid * mid == x:
+                return mid
+            elif mid * mid < x:
+                left = mid
             else:
-                right = m
-        # 循环结束时 left+1 == right
-        # 此时 left^2 <= x 且 right^2 > x
-        # 所以 left 最大的满足 m^2 <= x 的数
-        return left
+                right = mid - 1
+        # 退出循环以后，left = right，此时 return right 也对
+        return left  
